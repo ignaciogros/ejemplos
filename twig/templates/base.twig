@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="{{ package.lang }}" class="h-100">
+<head>
+    {{ node.metadata|raw }}
+    {% block head %}{% endblock %}
+</head>
+    <body class="{{ package.bodyClass }} h-100" id="exe-content"><script>document.body.className += ' js'</script>
+        {% block content %}{% endblock %}
+        {{ package.exeLink|raw }}
+    </body>
+</html>

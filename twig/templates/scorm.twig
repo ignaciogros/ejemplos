@@ -1,0 +1,32 @@
+{% extends "base.twig" %}
+
+{% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ base }}css/all.min.css">
+    <link rel="stylesheet" href="{{ base }}css/style.css">
+    <script src="{{ base }}js/style.js"></script>
+{% endblock %}
+ 
+{% block content %}
+    <div class="d-flex flex-column h-100" id="main-wrapper">
+
+        <main class="flex-shrink-0" id="content">
+            <div class="exe-container">
+                {{ node.counter|raw }}
+                <h1 class="lead project-title">{{ package.title }}</h1>
+                <h2 class="mb-4 node-title">{{ node.title }}</h2>
+                {{ node.content|raw }}
+            </div>
+        </main>
+
+        <footer class="footer mt-auto">
+            <div class="exe-container">
+                {{ package.license|raw }}
+                <div class="mb-3">
+                    {{ package.footer|raw }}
+                </div>
+            </div>
+        </footer>
+
+    </div>
+{% endblock %}

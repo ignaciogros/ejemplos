@@ -1,0 +1,325 @@
+/*
+Primary: #438606;
+    10% darker: 2A6D00
+    20% darker: 105300
+Links:
+    711f00
+        5% lighter: 7E2C0D
+        10% lighter: 8B391A
+*/
+body{
+    background: #fff;
+    color: #333;
+}
+
+body.sidebar-off #sidebar{
+    display: none;
+}
+
+h2.node-title{
+    color: #438606;
+}
+
+a{
+    color: #B04721
+}
+a:hover,
+a:focus{
+    color: #711f00;
+}
+
+#skip-navigation{
+    width:300px;
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    padding:10px 20px;
+}
+
+.exe-container{
+    padding: 10px 40px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+main .exe-container{
+    padding-top: 2.5em;
+    padding-bottom: 1.5em;
+}
+
+.exe-web-site main .exe-container{
+    padding-top: 4.5em;
+}
+
+#topbar{
+    position: fixed;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    z-index: 999
+}
+
+#topbar button,
+#topbar a,
+#topbar span.btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+}
+
+.btn-primary,
+.btn-primary.disabled{
+    background: #438606;
+    border-color: #438606;
+}
+
+.btn-primary.disabled{
+    opacity: .4;
+    filter: grayscale(1);
+}
+
+.btn-primary:hover,
+.btn-primary:focus{
+    background: #2A6D00;
+    border-color: #2A6D00
+}
+
+#sidebarTogger{
+    left: 280px;
+}
+
+#searchBarTogger{
+    left: 330px;
+}
+
+#topbar .pagination-prev{
+    left: 15px;
+}
+
+#topbar .pagination-next{
+    right: 15px;
+}
+
+#sidebar{
+    float:left;
+    background: #F6F6F6;
+    border-right: 1px solid #F0F0F0;
+    width:300px;
+    padding-top: 58px;
+}
+
+#sidebar-nav.fixed{
+    position: fixed;
+}
+
+@media (max-width: 767.98px) {
+    #sidebar{
+        width: 250px;
+    }
+    .exe-container{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    #sidebar{
+        width: 100%;
+        float: none;
+        padding: 58px 10px 20px 10px;
+        min-height: 0!important;
+        height: auto!important;
+    }
+    #sidebar-nav.fixed{
+        position: relative;
+    }
+    .exe-container{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .exe-web-site main .exe-container{
+        padding-top: 2.5em;
+    }
+    .exe-web-site.sidebar-off main .exe-container{
+        padding-top: 5em;
+    }
+    #sidebarTogger{
+        left: 65px;
+    }
+    #searchBarTogger{
+        left: 115px;
+    }
+}
+
+.sidebar-off #sidebar{
+    margin-left: -300px;
+}
+
+.sidebar-off #sidebarTogger{
+    left: 65px;
+}
+
+.sidebar-off #searchBarTogger{
+    left: 115px;
+}
+
+/*
+.sidebar-off #topbar .pagination-prev{
+    left: 60px;
+}
+*/
+
+#sidebar ul, #sidebar li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#sidebar a{
+    color: #000;
+    display: block;
+    padding: 8px 15px;
+    border-radius: 8px;
+    max-width: 280px;
+}
+
+#sidebar a.active{
+    background: #fff;
+    color: #B04721;
+}
+
+#sidebar a.package-link{
+    color: #B04721;
+}
+
+#sidebar a:hover{
+    background: #F2F2F2;
+    text-decoration: none;
+}
+
+#sidebar ul ul a{
+    padding-left: 35px;
+    font-size: .95em;
+}
+
+#sidebar ul ul ul a{
+    padding-left: 55px;
+    font-size: .9em;
+}
+
+#sidebar ul ul ul ul a{
+    padding-left: 75px;
+}
+
+footer.footer{
+    padding-top: 20px;
+    color: #555;
+    font-size: .95em;
+}
+
+/*
+body.sidebar-off footer.footer{
+    background: #F6F6F6;
+    border-top: 1px solid #F0F0F0;
+}
+*/
+
+/* Search form */
+#exe-client-search{
+    display: none;
+}
+
+/* iDevices */
+.box {
+    margin: 40px 0
+}
+
+.titled-box.minimized .box-content{
+    box-shadow: none!important;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    background: none;
+}
+
+.box.minimized .box-content *{
+    display: none!important;
+}
+
+.box-head{
+    position: relative;
+    min-height: 40px;
+}
+
+.box .box-toggler{
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+    color: #438606
+}
+
+.untitled-box .box-toggler{
+    bottom: 5px
+}
+
+.untitled-box.minimized .box-content{
+    border-top: 1px solid #ddd;
+}
+
+.box.minimized .box-toggler{
+    rotate: 180deg
+}
+
+.box .box-toggler.btn{
+    color: #438606
+}
+
+.box .box-toggler.btn:hover,
+.box .box-toggler.btn:focus{
+    color: #000
+}
+
+.box .exe-icon{
+    width: 40px;
+    height: 40px;
+    float:left;
+    position: relative;
+    top: -4px;
+    background-size: 40px auto;
+    margin-right: 10px;
+    filter: grayscale(1);
+    opacity: .8
+}
+
+.box-title{
+    color: #1e3f00;
+    padding: 0 50px
+}
+
+.titled-box .box-content{
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px 20px 5px 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Licenses */
+#packageLicense{text-align:left;font-size:.9em;color:#555;line-height:1em;margin:2.5em 0 7px 0;border:1px solid transparent;border-radius:2px}
+#packageLicense p{margin:20px 0}
+#packageLicense a{color:#444;text-decoration:underline}
+#packageLicense.propietary{position:absolute;overflow:hidden;clip:rect(0,0,0,0);height:0}
+#packageLicense.cc{padding:0 20px 0 90px;background:url(../img/licenses.gif) no-repeat 0 5px}
+#packageLicense.cc-by-sa{background-position:0 -95px}
+#packageLicense.cc-by-nd{background-position:0 -195px}
+#packageLicense.cc-by-nc{background-position:0 -295px}
+#packageLicense.cc-by-nc-sa{background-position:0 -395px}
+#packageLicense.cc-by-nc-nd{background-position:0 -495px}
+#packageLicense.cc-0{background-position:0 -595px}
+
+/* Made with eXe */
+.page-counter{margin:0 0 .5em 0;font-size:.9em;color:#777;font-weight:300}
+.exe-scorm .page-counter{text-align:right}
+.exe-web-site .page-counter{position:fixed;top:18px;right:70px;margin:0;font-size:.9em;color:#777}

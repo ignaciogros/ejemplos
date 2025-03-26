@@ -1,0 +1,81 @@
+{% extends "base.twig" %}
+
+{% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ base }}css/all.min.css">
+    <link rel="stylesheet" href="{{ base }}css/style.css">
+    <script src="{{ base }}js/style.js"></script>
+{% endblock %}
+ 
+{% block content %}
+    <a class="visually-hidden-focusable" href="#content" id="skip-navigation">{{ i18n.skipNavigation }}</a>
+    <div id="topbar">
+        <div class="custom-menu">
+            <button type="button" id="sidebarTogger" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">{{ i18n.hideShowNav }}</span>
+            </button>
+            <button type="button" id="searchBarTogger" class="btn btn-primary">
+                <i class="fa fa-magnifying-glass"></i>
+                <span class="sr-only">{{ i18n.search }}</span>
+            </button>
+            {% if node.prev != '' %}
+            <a href="{{ node.prev }}" class="btn btn-primary pagination-prev">
+                <i class="fa fa-caret-left"></i>
+                <span class="sr-only">{{ i18n.previous }}</span>
+            </a>
+            {% else %}
+            <span class="btn btn-primary pagination-prev disabled">
+                <i class="fa fa-caret-left"></i>
+                <span class="sr-only">{{ i18n.previous }}</span>
+            </span>
+            {% endif %}
+            {% if node.next != '' %}
+            <a href="{{ node.next }}" class="btn btn-primary pagination-next">
+                <i class="fa fa-caret-right"></i>
+                <span class="sr-only">{{ i18n.next }}</span>
+            </a>
+            {% else %}
+            <span class="btn btn-primary pagination-next disabled">
+                <i class="fa fa-caret-right"></i>
+                <span class="sr-only">{{ i18n.next }}</span>
+            </span>
+            {% endif %}
+        </div>
+    </div>
+    <nav id="sidebar" class="h-100 js-fullheight">
+        <div class="p-2" id="sidebar-nav">
+            {{ package.nav|raw }}
+        </div>
+    </nav>
+
+    <div class="d-flex flex-column h-100" id="main-wrapper">
+
+        <main class="flex-shrink-0" id="content">
+            <div class="exe-container">
+                <div id="exe-client-search" class="mb-4">
+                    <form id="exe-client-search-form" action="#" method="GET" class="d-flex">
+                        <input type="text" id="exe-client-search-text" placeholder="{{ i18n.search }}" class="form-control me-1">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
+                {{ node.counter|raw }}
+                <h1 class="lead project-title">{{ package.title }}</h1>
+                <h2 class="mb-4 node-title">{{ node.title }}</h2>
+                {{ node.content|raw }}
+            </div>
+        </main>
+
+        <footer class="footer mt-auto">
+            <div class="exe-container">
+                {{ package.license|raw }}
+                <div class="mb-3">
+                    {{ package.footer|raw }}
+                </div>
+            </div>
+        </footer>
+
+    </div>
+{% endblock %}
