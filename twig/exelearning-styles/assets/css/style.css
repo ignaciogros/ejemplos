@@ -133,6 +133,9 @@ main .exe-container{
         min-height: 0!important;
         height: auto!important;
     }
+    body #sidebar a{
+        max-width: 100%;
+    }
     #sidebar-nav.fixed{
         position: relative;
     }
