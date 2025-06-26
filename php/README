@@ -1,0 +1,3 @@
+- sort-moodle-mod-locale-file ordena alfabéticamente las variables de un fichero de idioma estándar de un módulo de Moodle.
+- compare-moodle-mod-locale-files/compare-file-to-tile compara dos ficheros (A y B) y te dice qué falta/sobra en cada uno.
+- compare-moodle-mod-locale-files/full-report permite comparar todos los ficheros de traducción de un módulo de Moodle para detectar diferencias.
