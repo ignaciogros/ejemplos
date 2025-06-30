@@ -3,7 +3,10 @@
 $sourceFile = 'messages.en.xlf';
 $files = glob('*.xlf');
 
-function getTransUnitOrder($filePath) {
+/**
+ * Load the ordering of trans-unit IDs from the source file.
+ */
+function getTransUnitOrder(string $filePath): array {
     $doc = new DOMDocument();
     $doc->load($filePath);
     $xpath = new DOMXPath($doc);
@@ -17,7 +20,19 @@ function getTransUnitOrder($filePath) {
     return $order;
 }
 
-function reorderXlf($filePath, $referenceOrder) {
+/**
+ * Create a backup copy of a file with .bak extension.
+ */
+function createBackup(string $filePath): string {
+    $backupPath = $filePath . '.bak';
+    copy($filePath, $backupPath);
+    return $backupPath;
+}
+
+/**
+ * Reorder trans-units in a file based on the reference order.
+ */
+function reorderXlf(string $filePath, array $referenceOrder): void {
     $doc = new DOMDocument();
     $doc->preserveWhiteSpace = false;
     $doc->formatOutput = true;
@@ -28,59 +43,97 @@ function reorderXlf($filePath, $referenceOrder) {
 
     $bodyNode = $xpath->query('//x:body')->item(0);
     if (!$bodyNode) {
-        echo "No <body> found in $filePath\n";
+        echo "⚠️ No <body> found in $filePath\n";
         return;
     }
 
-    // Indexar unidades por ID
+    // Index existing trans-units by ID
     $transUnits = [];
     foreach ($xpath->query('.//x:trans-unit', $bodyNode) as $unit) {
         $id = $unit->getAttribute('id');
         $transUnits[$id] = $unit;
     }
 
-    // Eliminar todas las trans-units actuales
+    // Clear current body
     while ($bodyNode->firstChild) {
         $bodyNode->removeChild($bodyNode->firstChild);
     }
 
-    // Añadir en el orden correcto
+    // Re-add units in reference order
     foreach ($referenceOrder as $id) {
         if (!isset($transUnits[$id])) continue;
 
         $unit = $transUnits[$id];
         $imported = $doc->importNode($unit, true);
 
-        // Asegurar <target></target> (no <target/>) aunque esté vacío
-        $target = null;
+        // Ensure <target></target> exists and is not self-closing
+        $hasTarget = false;
         foreach ($imported->childNodes as $child) {
             if ($child->nodeName === 'target') {
-                $target = $child;
-                break;
+                $hasTarget = true;
+                if (!$child->hasChildNodes()) {
+                    $child->nodeValue = ''; // enforce <target></target>
+                }
             }
         }
 
-        if (!$target) {
-            $target = $doc->createElement('target', '');
-            $imported->appendChild($target);
-        } elseif ($target->nodeType === XML_ELEMENT_NODE && !$target->hasChildNodes()) {
-            $target->nodeValue = ''; // fuerza <target></target>
+        if (!$hasTarget) {
+            $targetNode = $doc->createElement('target', '');
+            $imported->appendChild($targetNode);
         }
 
         $bodyNode->appendChild($imported);
     }
 
     $doc->save($filePath);
-    echo "✅ Reordenado: $filePath<br>";
 }
 
-// 1. Obtener orden del archivo fuente
-$order = getTransUnitOrder($sourceFile);
+/**
+ * Extract a mapping of trans-unit ID => translation string (target text).
+ */
+function extractTranslations(string $filePath): array {
+    $doc = new DOMDocument();
+    $doc->load($filePath);
+    $xpath = new DOMXPath($doc);
+    $xpath->registerNamespace("x", "urn:oasis:names:tc:xliff:document:1.2");
 
-// 2. Procesar cada archivo
+    $translations = [];
+    foreach ($xpath->query('//x:trans-unit') as $unit) {
+        $id = $unit->getAttribute('id');
+        $target = $xpath->query('x:target', $unit)->item(0);
+        $translations[$id] = $target ? $target->textContent : '';
+    }
+    return $translations;
+}
+
+/**
+ * Compare translations from two files. Returns true if identical.
+ */
+function translationsAreIdentical(string $file1, string $file2): bool {
+    $t1 = extractTranslations($file1);
+    $t2 = extractTranslations($file2);
+    ksort($t1);
+    ksort($t2);
+    return $t1 === $t2;
+}
+
+// Load source ordering
+$referenceOrder = getTransUnitOrder($sourceFile);
+
+// Process each file
 foreach ($files as $file) {
     if ($file === $sourceFile) continue;
-    reorderXlf($file, $order);
+
+    echo "🔄 Processing: $file\n";
+    $backup = createBackup($file);
+    reorderXlf($file, $referenceOrder);
+
+    if (translationsAreIdentical($file, $backup)) {
+        unlink($backup);
+        echo "✅ $file reordered and backup removed (no changes in translations).\n";
+    } else {
+        echo "⚠️ $file reordered, but differences found. Backup kept: $backup\n";
+    }
 }
 
-echo "✅ Todos los archivos fueron reordenados correctamente.<br>";
+echo "🎉 All files processed.\n";
