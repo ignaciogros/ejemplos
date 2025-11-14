@@ -1,9 +1,11 @@
 - compare-moodle-mod-locale-files/compare-file-to-tile compara dos ficheros (A y B) y te dice qué falta/sobra en cada uno.
 - compare-moodle-mod-locale-files/full-report permite comparar todos los ficheros de traducción de un módulo de Moodle para detectar diferencias.
 - compare-xlf-files compara las cadenas de dos ficheros XLF y te dice qué cadenas tiene cada uno que el otro no tiene.
+- delete-latex-strings no debería hacer falta. Elimina todas las cadenas que empiezan por \\, pero ya no se extraen con `make translations`.
 - delete-xlf-unused-strings hace lo mismo que hará el comando "make translations-cleanup" de eXeLearning 3.
+- get-ccaa-translations-from-xlf permite subir un XLF con traducciones nuevas que no encaja con la estructura del XLF a utilizar, y guarda en el XLF a utilizar esas nuevas cadenas (es para recuperar traducciones de CCAA).
 - get-traslated-strings-from-previous-xlf/new sirve para recuperar traducciones previas tras generar un nuevo fichero XLF (sin traducciones).
 - get-traslated-strings-from-previous-xlf/update sirve para recuperar traducciones previas tras generar un nuevo fichero XLF que ya tiene traducciones (las actualiza).
 - sort-moodle-mod-locale-file ordena alfabéticamente las variables de un fichero de idioma estándar de un módulo de Moodle.
 - sort-xlf-strings pone todos los elementos trans-unit de los ficheros XLF de eXeLearning en el mismo orden que en messages.en.xlf.
-- trim-xlf-translations borra o añade espacios al final de las traducciones de ficheros XLF.
+- trim-xlf-translations borra o añade espacios al final de las traducciones de ficheros XLF. 
